@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "BSC",
+    "year": 1,
+    "course_id": 1
+  },
+  {
+    "id": 2,
+    "name": "BSC",
+    "year": 2,
+    "course_id": 1
+  },
+  {
+    "id": 3,
+    "name": "BSC",
+    "year": 3,
+    "course_id": 1
+  },
+  {
+    "id": 4,
+    "name": "DIT",
+    "year": 1,
+    "course_id": 2
+  },
+  {
+    "id": 5,
+    "name": "DIT",
+    "year": 2,
+    "course_id": 2
+  },
+  {
+    "id": 6,
+    "name": "DIT",
+    "year": 3,
+    "course_id": 2
+  }
+]

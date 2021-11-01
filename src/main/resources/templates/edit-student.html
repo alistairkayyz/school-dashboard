@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+    <title>College Data Visualization</title>
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome5-overrides.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body style="background: #dbe6ef;font-family: Rubik, sans-serif;">
+<div class="top-nav d-flex justify-content-between" id="myTopnav">
+    <div>
+        <a class="d-flex align-items-center" th:href="@{dashboard}" style="font-weight: bold;">
+            <i class="fa fa-codiepie" style="font-size: 1.5rem;color: #ffffff;transform: rotate(208deg);"></i>
+            <span class="ms-2" style="color: rgb(255,255,255);">OneDash</span>
+        </a>
+        <div class="drop-down">
+            <button class="drop-btn">Dashboard
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{school-dashboard}">School Dashboard</a>
+                <a th:href="@{student-dashboard}">Student Dashboard</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Students
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{all-students}">All Students</a>
+                <a th:href="@{new-student}">Add Student</a>
+                <a th:href="@{edit-student}">Edit Student</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Manage
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{manage-users}">Manage Users</a>
+                <a th:href="@{manage-staff}">Manage Staff</a>
+            </div>
+        </div>
+
+        <a th:href="@{data-table}">Data Table</a>
+    </div>
+
+    <div class="drop-down justify-content-end">
+        <button class="drop-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="drop-down-content">
+            <a th:href="@{logout}">Log out</a>
+        </div>
+    </div>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()">
+        <svg fill="none" height="1em" style="font-size: 24px;" viewBox="0 0 24 24" width="1em"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                    d="M2 5.99519C2 5.44556 2.44556 5 2.99519 5H11.0048C11.5544 5 12 5.44556 12 5.99519C12 6.54482 11.5544 6.99039 11.0048 6.99039H2.99519C2.44556 6.99039 2 6.54482 2 5.99519Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2 11.9998C2 11.4501 2.44556 11.0046 2.99519 11.0046H21.0048C21.5544 11.0046 22 11.4501 22 11.9998C22 12.5494 21.5544 12.9949 21.0048 12.9949H2.99519C2.44556 12.9949 2 12.5494 2 11.9998Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2.99519 17.0096C2.44556 17.0096 2 17.4552 2 18.0048C2 18.5544 2.44556 19 2.99519 19H15.0048C15.5544 19 16 18.5544 16 18.0048C16 17.4552 15.5544 17.0096 15.0048 17.0096H2.99519Z"
+                    fill="currentColor"></path>
+        </svg>
+    </a>
+</div>
+    <section>
+        <div class="shadow container bg-white rounded py-3 my-4">
+            <h3 class="text-capitalize px-md-4 pt-3" style="font-size: 18px;color: rgb(101,105,109);">Student
+                Registration Form
+            </h3>
+            <div class="container py-3 pb-5">
+                <div class="w-100 text-center mb-3">
+                    <div class="w-50 p-3 status-safe d-none">Successfully registered a new student!</div>
+                    <div class="w-50 p-3 status-at-risk d-none">Failed registered a new student!</div>
+                </div>
+                <div class="search-area row px-3 mb-3">
+                    <form class="" action="" method="GET">
+                        <div class="input-group shadow-0">
+                            <input type="text" class="form-control " name="studentNumber" placeholder="Who are you looking for?" />
+                            <button type="submit" class="input-group-text">
+                                <i class="fas fa-search me-3"></i>Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <form class="row g-3 px-md-3" method="post" action="">
+                    <div class="col-sm-6 col-md-4">
+                        <label for="title" class="form-label">Title</label>
+                        <select class="form-select" id="title" name="title" required>
+                            <option selected disabled value="">Open this select menu</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Miss">Miss</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Dr">Dr</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="firstname" class="form-label">First name(s)</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="Ex. John" name="firstname" value=""
+                            required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="surname" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="surname" placeholder="Ex. Doe" name="surname" value=""
+                            required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" placeholder="Ex. 1970/01/01" name="dateOfBirth"
+                            value="" required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option selected disabled value="">Open this select menu</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other (I prefer not to say)</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="homeLanguage" class="form-label">Home Language</label>
+                        <select class="form-select" id="homeLanguage" name="homeLanguage" required>
+                            <option selected disabled value="">Open this select menu</option>
+                            <option value="Afrikaans">Afrikaans</option>
+                            <option value="English">English</option>
+                            <option value="Sepedi">Sepedi</option>
+                            <option value="isiZulu">isiZulu</option>
+                            <option value="Setswane">Setswane</option>
+                            <option value="isiNdebele">isiNdebele</option>
+                            <option value="isiXhosa">isiXhosa</option>
+                            <option value="Tshivenda">Tshivenda</option>
+                            <option value="Sesotho">Sesotho</option>
+                            <option value="Seswati">Seswati</option>
+                            <option value="Xitsonga">Xitsonga</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="idNumber" class="form-label">ID Number</label>
+                        <input type="text" class="form-control" id="idNumber" placeholder="Ex. 123456789" name="idNumber"
+                            value="" required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="cellphone" class="form-label">Cellphone</label>
+                        <input type="tel" class="form-control" id="cellphone" placeholder="Ex. 0731234567" name="cellphone"
+                            value="" required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Ex. john@email.com" name="email"
+                            value="" required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="nationality" class="form-label">Nationality</label>
+                        <select class="form-select" id="nationality" name="nationality" required>
+                            <option selected disabled value="">Open this select menu</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="streetAddress" class="form-label">Street Address</label>
+                        <input type="text" class="form-control" id="streetAddress" placeholder="Ex. 123 Richfield Street"
+                            name="streetAddress" value="" required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="suburb" class="form-label">Suburb</label>
+                        <input type="text" class="form-control" id="suburb" placeholder="Ex. Sandton" name="suburb" value=""
+                            required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" placeholder="Ex. Johannesburg" name="city" value=""
+                            required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="postCode" class="form-label">Post Code</label>
+                        <input type="text" class="form-control" id="postCode" placeholder="Ex. 20000" name="postCode" value=""
+                            required>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="course" class="form-label">Course</label>
+                        <select class="form-select" id="course" name="course" required>
+                            <option selected disabled value="">Open this select menu</option>
+                            <option value="BSc IT">BSc IT</option>
+                            <option value="Dip IT">Dip IT</option>
+                        </select>
+                    </div>
+        
+                    <!-- PARENT DETAILS-->
+                    <div class="row g-3 pb-3">
+                        <h3 class="text-capitalize mt-3 mb-0" style="font-size: 18px;color: rgb(101,105,109);">
+                            Parent Details
+                        </h3>
+        
+                        <div class="col-sm-6 col-md-4">
+                            <label for="parent-firstname" class="form-label">First name(s)</label>
+                            <input type="text" class="form-control" id="parent-firstname" placeholder="Ex. John"
+                                name="parent-firstname" value="" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <label for="parent-surname" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="parent-surname" placeholder="Ex. Doe"
+                                name="parent-surname" value="" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <label for="relation" class="form-label">Relation</label>
+                            <select class="form-select" id="relation" name="relation" required>
+                                <option selected disabled value="">Open this select menu</option>
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Guardian">Guardian</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <label for="parent-cellphone" class="form-label">Cellphone</label>
+                            <input type="tel" class="form-control" id="parent-cellphone" placeholder="Ex. 0731234567"
+                                name="parent-cellphone" value="" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <label for="parent-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="parent-email" placeholder="Ex. john@email.com"
+                                name="parent-email" value="" required>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{assets/js/bs-init.js}"></script>
+    <script th:src="@{assets/js/main.js}"> </script>
+</body>
+
+</html>

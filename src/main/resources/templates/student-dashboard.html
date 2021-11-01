@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+    <title>College Data Visualization</title>
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome5-overrides.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body style="background: #dbe6ef;font-family: Rubik, sans-serif;">
+<div class="top-nav d-flex justify-content-between" id="myTopnav">
+    <div>
+        <a class="d-flex align-items-center" th:href="@{dashboard}" style="font-weight: bold;">
+            <i class="fa fa-codiepie" style="font-size: 1.5rem;color: #ffffff;transform: rotate(208deg);"></i>
+            <span class="ms-2" style="color: rgb(255,255,255);">OneDash</span>
+        </a>
+        <div class="drop-down">
+            <button class="drop-btn">Dashboard
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{school-dashboard}">School Dashboard</a>
+                <a th:href="@{student-dashboard}">Student Dashboard</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Students
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{all-students}">All Students</a>
+                <a th:href="@{new-student}">Add Student</a>
+                <a th:href="@{edit-student}">Edit Student</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Manage
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{manage-users}">Manage Users</a>
+                <a th:href="@{manage-staff}">Manage Staff</a>
+            </div>
+        </div>
+
+        <a th:href="@{data-table}">Data Table</a>
+    </div>
+
+    <div class="drop-down justify-content-end">
+        <button class="drop-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="drop-down-content">
+            <a th:href="@{logout}">Log out</a>
+        </div>
+    </div>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()">
+        <svg fill="none" height="1em" style="font-size: 24px;" viewBox="0 0 24 24" width="1em"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                    d="M2 5.99519C2 5.44556 2.44556 5 2.99519 5H11.0048C11.5544 5 12 5.44556 12 5.99519C12 6.54482 11.5544 6.99039 11.0048 6.99039H2.99519C2.44556 6.99039 2 6.54482 2 5.99519Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2 11.9998C2 11.4501 2.44556 11.0046 2.99519 11.0046H21.0048C21.5544 11.0046 22 11.4501 22 11.9998C22 12.5494 21.5544 12.9949 21.0048 12.9949H2.99519C2.44556 12.9949 2 12.5494 2 11.9998Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2.99519 17.0096C2.44556 17.0096 2 17.4552 2 18.0048C2 18.5544 2.44556 19 2.99519 19H15.0048C15.5544 19 16 18.5544 16 18.0048C16 17.4552 15.5544 17.0096 15.0048 17.0096H2.99519Z"
+                    fill="currentColor"></path>
+        </svg>
+    </a>
+</div>
+<div class="rounded-3 p-0 mt-4 shadow" style="background: #dbe6ef;">
+    <header class="d-flex justify-content-between container-fluid px-5 py-2 shadow-sm rounded-top my-header">
+        <h1 class="d-flex my-auto py-3 font-weight-bold text-white" style="font-size: 1.2rem;">Student Performance
+            Dashboard<a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                        data-bs-toggle="tooltip" role="button"
+                        style="background: rgba(13,110,253,0);border-style: none;"
+                        title="Using this dashboard, you can monitor important KPI's, related to school performance, grade-wise performance, retention rate of students and more."><i class="fas fa-info-circle fs-4 text-white"></i></a></h1>
+        <div class="d-flex">
+            <div class="dropdown d-sm-flex align-items-sm-center">
+                <button
+                        aria-expanded="false" class="btn btn-dark dropdown-toggle rounded-3" data-bs-toggle="dropdown"
+                        type="button">Export
+                </button>
+                <div class="dropdown-menu dropdown-menu-dark"><a class="dropdown-item" href="#"><i
+                        class="far fa-file-pdf me-2"></i>PDF</a><a class="dropdown-item" href="#"><i
+                        class="far fa-file-image me-2"></i>Image</a><a class="dropdown-item" href="#"><i
+                        class="far fa-file-excel me-2"></i>Excel</a></div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid px-5">
+
+
+        <div class="row my-4">
+            <div class="col-12 ps-lg-0">
+                <div class="accordion accordion-flush mb-4" id="accordionFlushExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header text-white" id="flush-headingOne">
+                            <button aria-controls="flush-collapseOne" aria-expanded="false"
+                                    class="accordion-button  bg-dark text-white collapsed" data-bs-target="#flush-collapseOne" data-bs-toggle="collapse"
+                                    type="button">
+                                Filters <a class="btn d-flex align-items-sm-center p-0 ms-2 text-white"
+                                           data-bs-placement="bottom" data-bs-toggle="tooltip"
+                                           role="button" title="Click to open different filter options."><i
+                                    class="fas fa-info-circle"></i></a>
+                            </button>
+                        </h2>
+                        <div aria-labelledby="flush-headingOne" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample" id="flush-collapseOne">
+                            <div class="accordion-body">
+
+
+                                <form action="" class="col" method="get">
+                                    <div class="row gy-4 ">
+
+                                        <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="p-3 my-filters d-flex-inline w-100">
+                                                <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">
+                                                    Select Year
+                                                    <a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                       data-bs-placement="bottom" data-bs-toggle="tooltip"
+                                                       role="button"
+                                                       title="Select the academic year to check out the metrics for the selected year."><i
+                                                            class="fas fa-info-circle"></i></a>
+                                                </h1>
+                                                <div class="btn-sm p-0">
+                                                    <div class="form-check form-switch me-2">
+                                                        <input checked class="form-check-input" id="all-years"
+                                                               name="all-years" type="checkbox" value="all">
+                                                        <label class="form-check-label" for="all-years">All
+                                                            Years</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="year-2019"
+                                                               name="year-2019" onclick="check()" type="checkbox"
+                                                               value="2019">
+                                                        <label class="form-check-label" for="year-2019">2019</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="year-2020"
+                                                               name="year-2020" onclick="check()" type="checkbox"
+                                                               value="2020">
+                                                        <label class="form-check-label" for="year-2020">2020</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="year-2021"
+                                                               name="year-2021" onclick="check()" type="checkbox"
+                                                               value="2021">
+                                                        <label class="form-check-label" for="year-2021">2021</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="p-3 my-filters d-flex-inline w-100">
+                                                <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">Select
+                                                    Class<a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                            data-bs-placement="bottom" data-bs-toggle="tooltip"
+                                                            role="button"
+                                                            title="Select the academic year to check out the metrics for the selected year."><i
+                                                            class="fas fa-info-circle"></i></a>
+                                                </h1>
+                                                <div class="btn-sm p-0">
+                                                    <div class="form-check form-switch me-2">
+                                                        <input checked class="form-check-input" id="all-classes"
+                                                               name="all-classes" type="checkbox" value="all">
+                                                        <label class="form-check-label" for="all-classes">All
+                                                            Classes</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="first-year-class"
+                                                               name="first-year-class" onclick="check()" type="checkbox"
+                                                               value="1">
+                                                        <label class="form-check-label" for="first-year-class">First
+                                                            Year</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="second-year-class"
+                                                               name="second-year-class" onclick="check()" type="checkbox"
+                                                               value="2">
+                                                        <label class="form-check-label"
+                                                               for="second-year-class">Second
+                                                            Year</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="third-year-class"
+                                                               name="third-year-class" onclick="check()" type="checkbox"
+                                                               value="3">
+                                                        <label class="form-check-label" for="third-year-class">Third
+                                                            Year</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="p-3 my-filters d-flex-inline w-100">
+                                                <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">
+                                                    Select Semester
+                                                    <a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                       data-bs-placement="bottom" data-bs-toggle="tooltip"
+                                                       role="button"
+                                                       title="Select the academic year to check out the metrics for the selected year."><i
+                                                            class="fas fa-info-circle"></i></a>
+                                                </h1>
+                                                <div class="btn-sm p-0">
+                                                    <div class="form-check form-switch me-2">
+                                                        <input checked class="form-check-input" id="all-semesters"
+                                                               name="all-semesters" type="checkbox" value="all">
+                                                        <label class="form-check-label" for="all-semesters">All
+                                                            Semesters</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="semester-1"
+                                                               name="semester-1" onclick="check()" type="checkbox"
+                                                               value="1">
+                                                        <label class="form-check-label"
+                                                               for="flexSwitchCheckDefault">Semester 1</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="semester-2"
+                                                               name="semester-2" onclick="check()" type="checkbox"
+                                                               value="2">
+                                                        <label class="form-check-label"
+                                                               for="flexSwitchCheckDefault">Semester 2</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6 col-lg-3">
+                                            <div class="p-3 my-filters d-flex-inline w-100">
+                                                <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">Select
+                                                    Assessments<a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                                  data-bs-placement="bottom" data-bs-toggle="tooltip"
+                                                                  role="button"
+                                                                  title="Select the academic year to check out the metrics for the selected year."><i
+                                                            class="fas fa-info-circle"></i></a>
+                                                </h1>
+                                                <div class="btn-sm p-0">
+                                                    <div class="form-check form-switch me-2">
+                                                        <input checked class="form-check-input" id="all-assessments"
+                                                               name="all-assessments" type="checkbox" value="all">
+                                                        <label class="form-check-label" for="all-assessments">All
+                                                            Assessments</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="ca-1"
+                                                               name="ca-1" onclick="check()" type="checkbox" value="ca-1">
+                                                        <label class="form-check-label" for="ca-1">CA 1</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="ca-2"
+                                                               name="ca-2" onclick="check()" type="checkbox"
+                                                               value="ca-2">
+                                                        <label class="form-check-label" for="ca-2">CA 2</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="assignment"
+                                                               name="assignment" onclick="check()" type="checkbox"
+                                                               value="assignment">
+                                                        <label class="form-check-label"
+                                                               for="assignment">Assignment</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-2">
+                                                        <input class="form-check-input" id="exam"
+                                                               name="exam" onclick="check()" type="checkbox"
+                                                               value="exam">
+                                                        <label class="form-check-label" for="exam">Exam</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <button class="btn btn-dark" type="submit">Apply</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-3">
+                    <div class="col col-12 col-md-4 my-2">
+                        <section class="">
+                            <div class="d-flex align-items-center align-content-center shadow-sm"
+                                 style="width: 100%;height: 100%;background: rgb(255,255,255);border-radius: 12px;height: 100%;">
+                                <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                                    <header class="px-3 py-2"
+                                            style="background: #067eed;border-top-left-radius: 12px;border-top-right-radius: 12px">
+                                        <h1 class="text-white fs-5 m-0">First Year</h1>
+                                    </header>
+                                    <div class="p-3">
+                                        <p class="fs-5 m-0" style="color: #067eed;">Current Pass Rate</p>
+                                        <div class="d-flex pb-2">
+                                            <div class="progress progress-bar-striped w-100 me-2" style="height: 25px;">
+                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75"
+                                                     class="progress-bar w-75"
+                                                     role="progressbar"
+                                                     style="background: linear-gradient(-95deg, #00d2ff, var(--bs-blue)), rgb(13, 110, 253);">
+                                                    <span class="fs-5">75%</span>
+                                                </div>
+
+                                            </div>
+                                            <span class="" style="color: rgb(13, 110, 253);">+6.7%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                    <div class="col col-12 col-md-4 my-2">
+                        <section class="">
+                            <div class="d-flex align-items-center align-content-center shadow-sm"
+                                 style="width: 100%;height: 100%;background: rgb(255,255,255);border-radius: 12px;height: 100%;">
+                                <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                                    <header class="px-3 py-2"
+                                            style="background: var(--bs-purple);border-top-left-radius: 12px;border-top-right-radius: 12px">
+                                        <h1 class="text-white fs-5 m-0">Second Year</h1>
+                                    </header>
+                                    <div class="p-3">
+                                        <p class="fs-5 m-0" style="color: var(--bs-purple);">Current Pass Rate</p>
+                                        <div class="d-flex pb-2">
+                                            <div class="progress progress-bar-striped w-100 me-2" style="height: 25px;">
+                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75"
+                                                     class="progress-bar w-75"
+                                                     role="progressbar"
+                                                     style="background: linear-gradient(78deg, var(--bs-purple), #e43bf2), rgb(13, 110, 253);">
+                                                    <span class="fs-5">75%</span>
+                                                </div>
+
+                                            </div>
+                                            <span class="" style="color: var(--bs-purple);">+6.7%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                    <div class="col col-12 col-md-4 my-2">
+                        <section class="">
+                            <div class="d-flex align-items-center align-content-center shadow-sm"
+                                 style="width: 100%;height: 100%;background: rgb(255,255,255);border-radius: 12px;height: 100%;">
+                                <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                                    <header class="px-3 py-2"
+                                            style="background: #d74239;border-top-left-radius: 12px;border-top-right-radius: 12px">
+                                        <h1 class="text-white fs-5 m-0">Third Year</h1>
+                                    </header>
+                                    <div class="p-3">
+                                        <p class="fs-5 m-0" style="color: #d74239;">Current Pass Rate</p>
+                                        <div class="d-flex pb-2">
+                                            <div class="progress progress-bar-striped w-100 me-2" style="height: 25px;">
+                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="75"
+                                                     class="progress-bar w-75"
+                                                     role="progressbar"
+                                                     style="background: linear-gradient(68deg, #d74239, rgb(255,144,104));">
+                                                    <span class="fs-5">75%</span>
+                                                </div>
+
+                                            </div>
+                                            <span class="" style="color: #d74239;">+6.7%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                </div>
+
+
+                <div class="row gy-4 school">
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Pass Rate Summary
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate column e.g. 'Pass'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class=" ">
+                                    <canvas id="pass-rate-bar-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Pass Rate Time-Series
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate line e.g. 'First Year'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class="my-chart">
+                                    <canvas id="pass-rate-line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Assessments Summary
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate column e.g. 'Pass'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class=" ">
+                                    <canvas id="assessment-bar-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Assessments Time-Series
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate line e.g. 'First Year'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class="my-chart">
+                                    <canvas id="line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Student Count Remarks
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate portion e.g. 'First Year S1'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class="my-chart">
+                                    <canvas id="doughnut-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                        <div class="rounded-3 p-3 overview-chart">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                                    Results Overview
+                                    <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                       data-bs-toggle="tooltip"
+                                       role="button"
+                                       title="Click on the label to disable the appropriate variation e.g. 'First Year'."><i class="fas fa-info-circle"></i>
+                                    </a>
+                                </h2>
+
+                            </div>
+                            <div class="p-3 chart-container">
+                                <div class="my-chart">
+                                    <canvas id="radar-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="my-table">
+            <div class="row m-auto">
+                <div class="col bg-white px-0">
+                    <header class="header mb-3 p-3">
+                        <h1 class="text-start fs-5 mb-0 text-white">Top Performers</h1>
+                    </header>
+                    <div class="table-responsive px-3">
+                        <table class="table " id="example" style="width:100%">
+                            <thead class="">
+                            <tr>
+                                <th>Std Number</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Course</th>
+                                <th>Year of Study</th>
+                                <th>Email</th>
+                                <th>Aggregate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>202112345</td>
+                                <td>Tiger Nixon</td>
+                                <td>Male</td>
+                                <td>BSC IT</td>
+                                <td>3</td>
+                                <td>tigern@gmail.com</td>
+                                <td>96%</td>
+                            </tr>
+                            <tr>
+                                <td>202118345</td>
+                                <td>Garrett Winters</td>
+                                <td>Male</td>
+                                <td>DIT IT</td>
+                                <td>2</td>
+                                <td>garretw@gmail.com</td>
+                                <td>93%</td>
+                            </tr>
+                            <tr>
+                                <td>202122342</td>
+                                <td>Ashton Cox</td>
+                                <td>Male</td>
+                                <td>DIT IT</td>
+                                <td>3</td>
+                                <td>ashtonc@gmail.com</td>
+                                <td>93%</td>
+                            </tr>
+                            <tr>
+                                <td>202135742</td>
+                                <td>Kelly Jefferson</td>
+                                <td>Female</td>
+                                <td>BSC IT</td>
+                                <td>1</td>
+                                <td>jellyj@gmail.com</td>
+                                <td>91%</td>
+                            </tr>
+                            <tr>
+                                <td>202122342</td>
+                                <td>Airi Satou</td>
+                                <td>Female</td>
+                                <td>HIC IT</td>
+                                <td>1</td>
+                                <td>airis@gmail.com</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>202112345</td>
+                                <td>Tiger Nixon</td>
+                                <td>Male</td>
+                                <td>BSC IT</td>
+                                <td>3</td>
+                                <td>tigern@gmail.com</td>
+                                <td>90%</td>
+                            </tr>
+                            <tr>
+                                <td>202118345</td>
+                                <td>Garrett Winters</td>
+                                <td>Male</td>
+                                <td>DIT IT</td>
+                                <td>2</td>
+                                <td>garretw@gmail.com</td>
+                                <td>89%</td>
+                            </tr>
+                            <tr>
+                                <td>202122342</td>
+                                <td>Ashton Cox</td>
+                                <td>Male</td>
+                                <td>DIT IT</td>
+                                <td>3</td>
+                                <td>ashtonc@gmail.com</td>
+                                <td>89%</td>
+                            </tr>
+                            <tr>
+                                <td>202135742</td>
+                                <td>Kelly Jefferson</td>
+                                <td>Female</td>
+                                <td>BSC IT</td>
+                                <td>1</td>
+                                <td>jellyj@gmail.com</td>
+                                <td>88%</td>
+                            </tr>
+                            <tr>
+                                <td>202122342</td>
+                                <td>Airi Satou</td>
+                                <td>Female</td>
+                                <td>HIC IT</td>
+                                <td>1</td>
+                                <td>airis@gmail.com</td>
+                                <td>81%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/js/chart.min.js}"></script>
+<script th:src="@{assets/js/bs-init.js}"></script>
+<script th:src="@{assets/js/student-charts.js}"></script>
+<script th:src="@{assets/js/student-dashboard-filters.js}"></script>
+</body>
+
+</html>

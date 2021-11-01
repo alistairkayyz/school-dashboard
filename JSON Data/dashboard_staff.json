@@ -1,0 +1,134 @@
+[
+  {
+    "id": 10000,
+    "cellphone": "0785607730",
+    "designation": "Admin",
+    "email": "kjohnson@hotmail.com",
+    "firstname": "Kelly",
+    "gender": "Female",
+    "reg_date": "2017-02-01",
+    "surname": "Johnson",
+    "title": "Mrs"
+  },
+  {
+    "id": 10001,
+    "cellphone": "0785607730",
+    "designation": "Teacher",
+    "email": "harolc@hotmail.com",
+    "firstname": "Harold",
+    "gender": "Male",
+    "reg_date": "2017-02-01",
+    "surname": "Chen",
+    "title": "Mr"
+  },
+  {
+    "id": 10002,
+    "cellphone": "0678523840",
+    "designation": "Teacher",
+    "email": "danay@hotmail.com",
+    "firstname": "Dana",
+    "gender": "Female",
+    "reg_date": "2014-01-15",
+    "surname": "Yelle",
+    "title": "Mrs"
+  },
+  {
+    "id": 10003,
+    "cellphone": "0634197387",
+    "designation": "Teacher",
+    "email": "jeniffera@gmail.com",
+    "firstname": "Jennifer",
+    "gender": "Female",
+    "reg_date": "2012-01-16",
+    "surname": "Acosta",
+    "title": "Mrs"
+  },
+  {
+    "id": 10004,
+    "cellphone": "0665777030",
+    "designation": "Teacher",
+    "email": "harrym@gmail.com",
+    "firstname": "Harry",
+    "gender": "Male",
+    "reg_date": "2018-04-12",
+    "surname": "Miller",
+    "title": "Mr"
+  },
+  {
+    "id": 10005,
+    "cellphone": "0663824442",
+    "designation": "Teacher",
+    "email": "ericv@gmail.com",
+    "firstname": "Eric",
+    "gender": "Male",
+    "reg_date": "2014-02-01",
+    "surname": "Varela",
+    "title": "Mr"
+  },
+  {
+    "id": 10006,
+    "cellphone": "0662483375",
+    "designation": "Teacher",
+    "email": "nancyc@gmail.com",
+    "firstname": "Nancy",
+    "gender": "Female",
+    "reg_date": "2010-02-01",
+    "surname": "Cook",
+    "title": "Mrs"
+  },
+  {
+    "id": 10007,
+    "cellphone": "0786234583",
+    "designation": "Teacher",
+    "email": "marym@gmail.com",
+    "firstname": "Mary",
+    "gender": "Female",
+    "reg_date": "2015-02-02",
+    "surname": "McMinn",
+    "title": "Mrs"
+  },
+  {
+    "id": 10008,
+    "cellphone": "0782882306",
+    "designation": "Teacher",
+    "email": "angelf@gmail.com",
+    "firstname": "Angel",
+    "gender": "Male",
+    "reg_date": "2015-02-02",
+    "surname": "Flynn",
+    "title": "Mr"
+  },
+  {
+    "id": 10009,
+    "cellphone": "0785844199",
+    "designation": "Teacher",
+    "email": "valorieg@gmail.com",
+    "firstname": "Valorie",
+    "gender": "Female",
+    "reg_date": "2015-02-04",
+    "surname": "Goforth",
+    "title": "Mrs"
+  },
+  {
+    "id": 10010,
+    "cellphone": "0783051366",
+    "designation": "Manager",
+    "email": "robertn@gmail.com",
+    "firstname": "Robert",
+    "gender": "Male",
+    "reg_date": "2013-02-04",
+    "surname": "Norris",
+    "title": "Mr"
+  },
+  {
+    "id": 10011,
+    "cellphone": "0742039485",
+    "designation": "Stakeholder",
+    "email": "mollyl@gmail.com",
+    "firstname": "Molly",
+    "gender": "Female",
+    "reg_date": "2015-02-04",
+    "surname": "Lowe",
+    "title": "Mrs"
+  }
+]

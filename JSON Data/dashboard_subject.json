@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "code": "PRO511",
+    "name": "Programming 511",
+    "semester": 1,
+    "classroom_id": 1,
+    "staff_id": 10001
+  },
+  {
+    "id": 2,
+    "code": "PRO512",
+    "name": "Programming 512",
+    "semester": 2,
+    "classroom_id": 1,
+    "staff_id": 10001
+  },
+  {
+    "id": 3,
+    "code": "WBT511",
+    "name": "Web Technology 511",
+    "semester": 1,
+    "classroom_id": 1,
+    "staff_id": 10002
+  },
+  {
+    "id": 4,
+    "code": "WBT512",
+    "name": "Web Technology 512",
+    "semester": 2,
+    "classroom_id": 1,
+    "staff_id": 10002
+  },
+  {
+    "id": 5,
+    "code": "PRO621",
+    "name": "Programming 621",
+    "semester": 1,
+    "classroom_id": 2,
+    "staff_id": 10003
+  },
+  {
+    "id": 6,
+    "code": "PRO622",
+    "name": "Programming 622",
+    "semester": 2,
+    "classroom_id": 2,
+    "staff_id": 10003
+  },
+  {
+    "id": 7,
+    "code": "IPR621",
+    "name": "Internet Programming 621",
+    "semester": 1,
+    "classroom_id": 2,
+    "staff_id": 10004
+  },
+  {
+    "id": 8,
+    "code": "IPR622",
+    "name": "Internet Programming 622",
+    "semester": 2,
+    "classroom_id": 2,
+    "staff_id": 10004
+  },
+  {
+    "id": 9,
+    "code": "PRO731",
+    "name": "Programming 731",
+    "semester": 1,
+    "classroom_id": 3,
+    "staff_id": 10005
+  },
+  {
+    "id": 10,
+    "code": "PRO732",
+    "name": "Programming 732",
+    "semester": 2,
+    "classroom_id": 3,
+    "staff_id": 10005
+  },
+  {
+    "id": 11,
+    "code": "PRO741",
+    "name": "Programming 741",
+    "semester": 1,
+    "classroom_id": 3,
+    "staff_id": 10006
+  },
+  {
+    "id": 12,
+    "code": "PRO742",
+    "name": "Programming 742",
+    "semester": 2,
+    "classroom_id": 3,
+    "staff_id": 10006
+  }
+]

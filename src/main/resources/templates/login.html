@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>College Data Visualization</title>
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome5-overrides.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body>
+    <section class="login-dark">
+
+        <form th:method="post" th:action="@{login}" th:object="${user}" class="text-center p-5">
+            <div th:if="${validate == true}" class="w-100 text-center mb-3 ">
+                <div class="btn-danger">Invalid Role, Username or Password!</div>
+            </div>
+            <div class="row text-start text-white mb-3">
+                <h1 class="fs-6">
+                    Select Role:
+                </h1>
+                <div class="form-check col-6">
+                    <input class="form-check-input" type="radio" name="role" id="admin" th:field="*{role}" th:value="Admin" required>
+                    <label class="form-check-label" for="admin">
+                        Admin
+                    </label>
+                </div>
+                <div class="form-check col-6">
+                    <input class="form-check-input" type="radio" name="role" id="teacher" th:field="*{role}" th:value="Teacher">
+                    <label class="form-check-label" for="teacher">
+                        Teacher
+                    </label>
+                </div>
+                <div class="form-check col-6">
+                    <input class="form-check-input" type="radio" name="role" id="stakeholder" th:field="*{role}" th:value="Stakeholder">
+                    <label class="form-check-label" for="stakeholder">
+                        Stakeholder
+                    </label>
+                </div>
+                <div class="form-check col-6">
+                    <input class="form-check-input" type="radio" name="role" id="parent" th:field="*{role}" th:value="Parent">
+                    <label class="form-check-label" for="parent">
+                        Parent
+                    </label>
+                </div>
+            </div>
+            <div class="form-floating mb-3 text-white">
+                <input type="text" class="form-control bg-transparent text-white" th:field="*{id}" name="username" id="username" placeholder="123456" required>
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-3 text-white">
+                <input type="password" class="form-control bg-transparent text-white" th:field="*{password}" name="password" id="password" placeholder="Password" required>
+                <label for="password">Password</label>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary d-block w-100" type="submit">Log In</button>
+            </div>
+            <a class="forgot text-white" th:href="@{reset-password}">Forgot your password?</a>
+        </form>
+    </section>
+    <script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{assets/js/bs-init.js}"></script>
+</body>
+
+</html>

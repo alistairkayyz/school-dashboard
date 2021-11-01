@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+    <title>College Data Visualization</title>
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome5-overrides.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body style="background: #dbe6ef;font-family: Rubik, sans-serif;">
+
+<div class="top-nav d-flex justify-content-between" id="myTopnav">
+    <div>
+        <a class="d-flex align-items-center" style="font-weight: bold;" th:href="@{dashboard}">
+            <i class="fa fa-codiepie" style="font-size: 1.5rem;color: #ffffff;transform: rotate(208deg);"></i>
+            <span class="ms-2" style="color: rgb(255,255,255);">OneDash</span>
+        </a>
+        <div class="drop-down">
+            <button class="drop-btn">Dashboard
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{school-dashboard}">School Dashboard</a>
+                <a th:href="@{student-dashboard}">Student Dashboard</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Students
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{all-students}">All Students</a>
+                <a th:href="@{new-student}">Add Student</a>
+                <a th:href="@{edit-student}">Edit Student</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Manage
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{manage-users}">Manage Users</a>
+                <a th:href="@{manage-staff}">Manage Staff</a>
+            </div>
+        </div>
+
+        <a th:href="@{data-table}">Data Table</a>
+    </div>
+
+    <div class="drop-down justify-content-end">
+        <button class="drop-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="drop-down-content">
+            <a th:href="@{logout}">Log out</a>
+        </div>
+    </div>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()">
+        <svg fill="none" height="1em" style="font-size: 24px;" viewBox="0 0 24 24" width="1em"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                    d="M2 5.99519C2 5.44556 2.44556 5 2.99519 5H11.0048C11.5544 5 12 5.44556 12 5.99519C12 6.54482 11.5544 6.99039 11.0048 6.99039H2.99519C2.44556 6.99039 2 6.54482 2 5.99519Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2 11.9998C2 11.4501 2.44556 11.0046 2.99519 11.0046H21.0048C21.5544 11.0046 22 11.4501 22 11.9998C22 12.5494 21.5544 12.9949 21.0048 12.9949H2.99519C2.44556 12.9949 2 12.5494 2 11.9998Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2.99519 17.0096C2.44556 17.0096 2 17.4552 2 18.0048C2 18.5544 2.44556 19 2.99519 19H15.0048C15.5544 19 16 18.5544 16 18.0048C16 17.4552 15.5544 17.0096 15.0048 17.0096H2.99519Z"
+                    fill="currentColor"></path>
+        </svg>
+    </a>
+</div>
+
+<div class="container rounded-3 p-0 mt-4 shadow" style="background: rgb(232,236,239);">
+    <header class="d-flex justify-content-between container py-2 shadow-sm rounded-top my-header">
+        <h1 class="d-flex my-auto py-3 font-weight-bold text-white" style="font-size: 1.2rem;">Overview Dashboard<a
+                class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                data-bs-toggle="tooltip" role="button"
+                style="background: rgba(13,110,253,0);border-style: none;"
+                title="Using this dashboard, you can monitor important KPI's, related to school performance, grade-wise performance, retention rate of students and more."><i
+                class="fas fa-info-circle fs-4 text-white"></i></a></h1>
+        <div class="d-flex"></div>
+    </header>
+    <div class="container mb-3">
+        <div class="row" style="height: 100%;">
+            <div class="col col-12 col-md-6 col-xl-3 gy-4">
+                <section class="highlight-blue shadow-sm"
+                         style="width: 100%;background: rgb(255,255,255);padding: 0px 0px;font-family: Rubik, sans-serif;border-radius: 12px;border-style: none;border-bottom: 12px none #067eed;border-left: 18px solid #067eed;height: 90px;">
+                    <div class="container d-flex align-items-center align-content-center"
+                         style="width: 100%;padding: 16px;border-radius: 0px;height: 89px;">
+                        <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                            <div>
+                                <h2 class="text-center d-flex"
+                                    style="font-size: 18px;width: 100%;color: #0e3854;margin: 0;">Students</h2>
+                            </div>
+                            <div class="d-flex d-lg-flex flex-row justify-content-between align-items-lg-center"
+                                 style="width: 100%;margin-top: 6px;color: #067eed;"><i class="fas fa-user-graduate"
+                                                                                        style="font-size: 1.5rem;height: 1.8rem;"></i>
+                                <h1 class="d-flex d-sm-flex d-lg-flex justify-content-end justify-content-sm-end justify-content-lg-end w-50"
+                                    style="font-size: 1.5rem;height: 2rem;" th:text="${totalStudent}">2351</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col col-12 col-md-6 col-xl-3 gy-4">
+                <section class="highlight-blue shadow-sm"
+                         style="width: 100%;background: rgb(255,255,255);padding: 0px 0px;font-family: Rubik, sans-serif;border-radius: 12px;height: 90px;border-style: none;border-bottom: 12px none #067eed ;border-left: 18px solid #1cc88a ;">
+                    <div class="container d-flex align-items-center align-content-center"
+                         style="width: 100%;padding: 16px;border-radius: 0px;height: 89px;">
+                        <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                            <div>
+                                <h2 class="text-center d-flex"
+                                    style="font-size: 18px;width: 100%;color: #0e3854;margin: 0;">Teachers</h2>
+                            </div>
+                            <div class="d-flex d-lg-flex flex-row justify-content-between align-items-lg-center"
+                                 style="width: 100%;margin-top: 6px;color: #1cc88a;"><i class="fas fa-user-tie"
+                                                                                        style="font-size: 1.5rem;height: 1.8rem;"></i>
+                                <h1 class="d-flex d-sm-flex d-lg-flex justify-content-end justify-content-sm-end justify-content-lg-end w-50"
+                                    style="font-size: 1.5rem;height: 2rem;" th:text="${totalTeachers}">2351</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col col-12 col-md-6 col-xl-3 gy-4">
+                <section class="highlight-blue shadow-sm"
+                         style="width: 100%;background: rgb(255,255,255);padding: 0px 0px;font-family: Rubik, sans-serif;border-radius: 12px;height: 90px;border-style: none;border-bottom: 12px none #067eed ;border-left: 18px solid #ff7c1f ;">
+                    <div class="container d-flex align-items-center align-content-center"
+                         style="width: 100%;padding: 16px;border-radius: 0px;height: 89px;">
+                        <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                            <div>
+                                <h2 class="text-center d-flex"
+                                    style="font-size: 18px;width: 100%;color: #0e3854;margin: 0;">Students'
+                                    Performance</h2>
+                            </div>
+                            <div class="d-flex d-lg-flex flex-row justify-content-between align-items-lg-center"
+                                 style="width: 100%;margin-top: 6px;color: #ff7c1f;"><i class="fas fa-chart-line"
+                                                                                        style="font-size: 1.5rem;height: 1.8rem;"></i>
+                                <h1 class="d-flex d-sm-flex d-lg-flex justify-content-end justify-content-sm-end justify-content-lg-end w-50"
+                                    style="font-size: 1.5rem;height: 2rem;"th:text="${studentPerformance}">+33%</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col col-sm-12 col-md-6 col-xl-3 gy-4">
+                <section class="highlight-blue shadow-sm"
+                         style="width: 100%;background: rgb(255,255,255);padding: 0px 0px;font-family: Rubik, sans-serif;border-radius: 12px;height: 90px;border-style: none;border-bottom: 12px none #067eed;border-left: 18px solid #e43bf2;color: #e43bf2;">
+                    <div class="container d-flex align-items-center align-content-center"
+                         style="width: 100%;padding: 16px;border-radius: 0px;height: 89px;">
+                        <div class="d-flex flex-column intro m-auto" style="width: 100%;padding: 0px;">
+                            <div>
+                                <h2 class="text-center d-flex"
+                                    style="font-size: 18px;width: 100%;color: #0e3854;margin: 0;">Teachers'
+                                    Performance</h2>
+                            </div>
+                            <div class="d-flex d-lg-flex flex-row justify-content-between align-items-lg-center"
+                                 style="width: 100%;margin-top: 6px;color: #e43bf2;"><i class="fa fa-line-chart"
+                                                                                        style="font-size: 1.5rem;height: 1.8rem;"></i>
+                                <h1 class="d-flex d-sm-flex d-lg-flex justify-content-end justify-content-sm-end justify-content-lg-end w-50"
+                                    style="font-size: 1.5rem;height: 2rem;" th:text="${teacherPerformance}">+27%</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="container py-4">
+        <div class="row gy-4">
+            <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                <div class="rounded-3 p-3 overview-chart">
+                    <div class="justify-content-between">
+                        <h2 class="text-center d-flex fs-5" style="width: 100%;color: #0e3854;margin: 0;">Overall
+                            Results
+                            Overview</h2>
+                        <p class="text-muted" style="font-size: .8rem;">
+                            The overall performance from 2019 academic year.
+                        </p>
+
+                    </div>
+                    <div class="p-3 chart-container">
+                        <div class=" ">
+                            <canvas id="overview-bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                <div class="rounded-3 p-3 overview-chart">
+                    <div class="justify-content-between">
+                        <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                            Students Count Per Class
+                        </h2>
+                        <p class="text-muted" style="font-size: .8rem;">
+                            The total number of students for each class since 2019 academic year.
+                        </p>
+
+                    </div>
+                    <div class="p-3 chart-container">
+                        <div class="my-chart">
+                            <canvas id="overview-doughnut-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                <div class="rounded-3 p-3 overview-chart">
+                    <div class="justify-content-between">
+                        <h2 class="text-center d-flex fs-5" style="color: #0e3854;margin: 0;">
+                            Class Performance Time-Series
+                        </h2>
+                        <p class="text-muted" style="font-size: .8rem;">
+                            The class performance from 2019 to current academic year.
+                        </p>
+
+                    </div>
+                    <div class="p-3 chart-container">
+                        <div class="my-chart">
+                            <canvas id="overview-line-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-3 mb-md-0">
+                <div class="rounded-3 p-3 overview-chart">
+                    <div class="justify-content-between">
+                        <h2 class="text-center d-flex fs-5" style="width: 100%;color: #0e3854;margin: 0;">
+                            Overall Results Overview
+                        </h2>
+                        <p class="text-muted" style="font-size: .8rem;">
+                            The variation between all assessments since 2019 academic year.
+                        </p>
+
+                    </div>
+                    <div class="p-3 chart-container">
+                        <div class="my-chart">
+                            <canvas id="overview-radar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-table">
+        <div class="row container m-auto">
+            <div class="col bg-white px-0">
+                <header class="header mb-3 p-3">
+                    <h1 class="text-start fs-5 mb-0 text-white">Top Performers</h1>
+                </header>
+                <div class="table-responsive px-3">
+                    <table class="table " id="example" style="width:100%">
+                        <thead class="">
+                        <tr>
+                            <th>Std Number</th>
+                            <th>Full Name</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Year of Study</th>
+                            <th>Aggregate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="perfomers : ${topPerformers}">
+                            <td th:text="${perfomers.getStudent_number()}">202112345</td>
+                            <td th:text="${perfomers.getName()}">Tiger Nixon</td>
+                            <td th:text="${perfomers.getGender()}">Male</td>
+                            <td th:text="${perfomers.getEmail()}">BSC IT</td>
+                            <td th:text="${perfomers.getCourse_name()}">3</td>
+                            <td th:text="${perfomers.getYear()}">tigern@gmail.com</td>
+                            <td th:text="${perfomers.getFormattedAggregate()}">96%</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{assets/js/chart.min.js}"></script>
+<script th:src="@{assets/js/bs-init.js}"></script>
+<script th:src="@{assets/js/main.js}"></script>
+
+<script th:inline="javascript">
+
+    // overview bar data sets
+    {
+        const overviewBarLabels = ['1st Year', '2nd Year', '3rd Year'];
+        const overviewBarData = {
+            labels: overviewBarLabels,
+            datasets: [
+                {
+                    label: '100% Pass',
+                    data: /*[[${pass100}]]*/ null,
+                    backgroundColor: 'rgba(28, 200, 138, 0.2)',
+                    borderColor: 'rgb(28, 200, 138)',
+                    borderWidth: 1
+                },
+                {
+                    label: '75% Pass',
+                    data: /*[[${pass75}]]*/ null,
+                    backgroundColor: 'rgba(228, 59, 242, 0.2)',
+                    borderColor: 'rgb(228, 59, 242)',
+                    borderWidth: 1
+                },
+                {
+                    label: '50% Pass',
+                    data: /*[[${pass50}]]*/ null,
+                    backgroundColor: 'rgba(6, 126, 237, 0.2)',
+                    borderColor: 'rgb(6, 126, 237)',
+                    borderWidth: 1
+                },
+                {
+                    label: '25% Pass',
+                    data: /*[[${pass25}]]*/ null,
+                    backgroundColor: 'rgba(255, 124, 31, 0.2)',
+                    borderColor: 'rgb(255, 124, 31)',
+                    borderWidth: 1
+                },
+                {
+                    label: '0% Pass',
+                    data: /*[[${fail}]]*/ null,
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    borderColor: 'rgb(255, 0, 0)',
+                    borderWidth: 1
+                }
+            ]
+        };
+        const overviewBarConfig = {
+            type: 'bar',
+            data: overviewBarData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+        };
+
+        var myoverviewBarChart = new Chart(
+            document.getElementById('overview-bar-chart'),
+            overviewBarConfig
+        );
+    }
+
+    // overview doughnut data sets
+    {
+        const overviewDoughnutData = {
+            labels: [
+                '1st Year',
+                '2nd Year',
+                '3rd Year',
+            ],
+            datasets: [{
+                label: 'Class',
+                data: /*[[${doughnutData}]]*/ null,
+                backgroundColor: [
+                    'rgba(6, 126, 237, 1)',
+                    'rgba(255, 124, 31, 1)',
+                    'rgba(28, 200, 135, 1)',
+                ],
+                spacing: 10,
+                hoverOffset: 4
+            }]
+        };
+        const overviewDoughnutConfig = {
+            type: 'doughnut',
+            data: overviewDoughnutData,
+        };
+
+        var myOverviewDoughnutChart = new Chart(
+            document.getElementById('overview-doughnut-chart'),
+            overviewDoughnutConfig
+        );
+    }
+
+    // overview line chart data sets
+    {
+        const overviewLineLabels = /*[[${lineLabels}]]*/ null;
+        const overviewLineData = {
+            labels: overviewLineLabels,
+            datasets: [
+                {
+                    label: '1st Year',
+                    data: /*[[${lineData1}]]*/ null,
+                    fill: true,
+                    backgroundColor: 'rgba(6, 126, 237, 0.2)',
+                    borderColor: 'rgb(6, 126, 237)',
+                    tension: 0.4
+                },
+                {
+                    label: '2nd Year',
+                    data: /*[[${lineData2}]]*/ null,
+                    fill: true,
+                    backgroundColor: 'rgba(255, 124, 31, 0.2)',
+                    borderColor: 'rgb(255, 124, 31)',
+                    tension: 0.4
+                },
+                {
+                    label: '2rd Year',
+                    data: /*[[${lineData3}]]*/ null,
+                    fill: true,
+                    backgroundColor: 'rgba(28, 200, 138, 0.2)',
+                    borderColor: 'rgb(28, 200, 138)',
+                    tension: 0.5
+                }
+            ]
+        };
+        const overviewLineConfig = {
+            type: 'line',
+            data: overviewLineData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+        var myOverviewLineChart = new Chart(
+            document.getElementById('overview-line-chart'),
+            overviewLineConfig
+        );
+    }
+
+    // overview radar chart data sets
+    {
+        const overviewRadarData = {
+            labels: [
+                'Semester',
+                'Exam',
+                'Assignment',
+                'CA 2',
+                'CA 1'
+            ],
+            datasets: [{
+                label: '1st Year',
+                data: /*[[${firstYearRadarData}]]*/ null,
+                fill: true,
+                backgroundColor: 'rgba(6, 126, 237, 0.2)',
+                borderColor: 'rgb(6, 126, 237)',
+                pointBackgroundColor: 'rgb(6, 126, 237)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(6, 126, 237)'
+            }, {
+                label: '2nd Year',
+                data: /*[[${secondYearRadarData}]]*/ null,
+                fill: true,
+                backgroundColor: 'rgba(255, 124, 31, 0.2)',
+                borderColor: 'rgb(255, 124, 31)',
+                pointBackgroundColor: 'rgb(255, 124, 31)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(255, 124, 31)'
+            }, {
+                label: '3rd Year',
+                data: /*[[${thirdYearRadarData}]]*/ null,
+                fill: true,
+                backgroundColor: 'rgba(28, 200, 138, 0.2)',
+                borderColor: 'rgb(28, 200, 138)',
+                pointBackgroundColor: 'rgb(28, 200, 138)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(28, 200, 138)'
+            }]
+        };
+        const overviewRadarConfig = {
+            type: 'radar',
+            data: overviewRadarData,
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                }
+            },
+        };
+
+        var myOverviewRadarChart = new Chart(
+            document.getElementById('overview-radar-chart'),
+            overviewRadarConfig
+        );
+    }
+
+
+</script>
+</body>
+
+</html>

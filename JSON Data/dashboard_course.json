@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "code": "BSc IT",
+    "name": "Bachelor of Science in Information Technology",
+    "faculty_id": 1
+  },
+  {
+    "id": 2,
+    "code": "Dip IT",
+    "name": "Diploma in Information Technology",
+    "faculty_id": 1
+  }
+]

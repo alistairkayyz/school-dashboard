@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
+    <title>College Data Visualization</title>
+    <link rel="stylesheet" th:href="@{assets/bootstrap/css/bootstrap.min.css}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/ionicons.min.css}">
+    <link rel="stylesheet" th:href="@{assets/fonts/fontawesome5-overrides.min.css}">
+    <link rel="stylesheet" th:href="@{assets/css/styles.css}">
+</head>
+
+<body style="background: #dbe6ef;font-family: Rubik, sans-serif;">
+<div class="top-nav d-flex justify-content-between" id="myTopnav">
+    <div>
+        <a class="d-flex align-items-center" style="font-weight: bold;" th:href="@{dashboard}">
+            <i class="fa fa-codiepie" style="font-size: 1.5rem;color: #ffffff;transform: rotate(208deg);"></i>
+            <span class="ms-2" style="color: rgb(255,255,255);">OneDash</span>
+        </a>
+        <div class="drop-down">
+            <button class="drop-btn">Dashboard
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{school-dashboard}">School Dashboard</a>
+                <a th:href="@{student-dashboard}">Student Dashboard</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Students
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{all-students}">All Students</a>
+                <a th:href="@{new-student}">Add Student</a>
+                <a th:href="@{edit-student}">Edit Student</a>
+            </div>
+        </div>
+        <div class="drop-down">
+            <button class="drop-btn">Manage
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="drop-down-content">
+                <a th:href="@{manage-users}">Manage Users</a>
+                <a th:href="@{manage-staff}">Manage Staff</a>
+            </div>
+        </div>
+
+        <a th:href="@{data-table}">Data Table</a>
+    </div>
+
+    <div class="drop-down justify-content-end">
+        <button class="drop-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <div class="drop-down-content">
+            <a th:href="@{logout}">Log out</a>
+        </div>
+    </div>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()">
+        <svg fill="none" height="1em" style="font-size: 24px;" viewBox="0 0 24 24" width="1em"
+             xmlns="http://www.w3.org/2000/svg">
+            <path
+                    d="M2 5.99519C2 5.44556 2.44556 5 2.99519 5H11.0048C11.5544 5 12 5.44556 12 5.99519C12 6.54482 11.5544 6.99039 11.0048 6.99039H2.99519C2.44556 6.99039 2 6.54482 2 5.99519Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2 11.9998C2 11.4501 2.44556 11.0046 2.99519 11.0046H21.0048C21.5544 11.0046 22 11.4501 22 11.9998C22 12.5494 21.5544 12.9949 21.0048 12.9949H2.99519C2.44556 12.9949 2 12.5494 2 11.9998Z"
+                    fill="currentColor"></path>
+            <path
+                    d="M2.99519 17.0096C2.44556 17.0096 2 17.4552 2 18.0048C2 18.5544 2.44556 19 2.99519 19H15.0048C15.5544 19 16 18.5544 16 18.0048C16 17.4552 15.5544 17.0096 15.0048 17.0096H2.99519Z"
+                    fill="currentColor"></path>
+        </svg>
+    </a>
+</div>
+<div class="rounded-3 p-0 mt-4 shadow" style="background: #dbe6ef;">
+    <header class="d-flex justify-content-between container-fluid px-5 py-2 shadow-sm rounded-top my-header">
+        <h1 class="d-flex my-auto py-3 font-weight-bold text-white" style="font-size: 1.2rem;">Students Data Table<a
+                class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                data-bs-toggle="tooltip" role="button"
+                style="background: rgba(13,110,253,0);border-style: none;"
+                title="Using this dashboard, you can monitor important KPI's, related to school performance, grade-wise performance, retention rate of students and more."><i
+                class="fas fa-info-circle fs-4 text-white"></i></a></h1>
+        <div class="d-flex">
+            <div class="dropdown d-sm-flex align-items-sm-center">
+                <button
+                        aria-expanded="false" class="btn btn-dark dropdown-toggle rounded-3" data-bs-toggle="dropdown"
+                        type="button">Export
+                </button>
+                <div class="dropdown-menu dropdown-menu-dark"><a class="dropdown-item" href="#"><i
+                        class="far fa-file-pdf me-2"></i>PDF</a><a class="dropdown-item" href="#"><i
+                        class="far fa-file-image me-2"></i>Image</a><a class="dropdown-item" href="#"><i
+                        class="far fa-file-excel me-2"></i>Excel</a></div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid px-5">
+        <!-- MESSAGE STUDENTS MODAL -->
+        <div class="custom-message">
+
+            <button class="btn btn-dark m-3 rounded" data-bs-target="#messageModal" data-bs-toggle="modal"
+                    data-bs-whatever="202109876" type="button"><i class="fas fa-envelope"></i></button>
+        </div>
+        <div aria-hidden="true" aria-labelledby="messageModalLabel" class="modal fade" id="messageModal"
+             tabindex="1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLabel">
+                            New message</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
+                                type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">
+                                Message Recipient Options
+                                <a class="btn d-flex align-items-sm-center p-0 ms-2" data-bs-placement="bottom"
+                                   data-bs-toggle="tooltip"
+                                   role="button"
+                                   title="Select the academic year to check out the metrics for the selected year."><i
+                                        class="fas fa-info-circle"></i></a>
+                            </h1>
+                            <div class="btn-sm p-0 d-flex">
+                                <div class="form-check form-switch me-2">
+                                    <input checked class="form-check-input" id="message-students" name="all"
+                                           type="checkbox" value="all">
+                                    <label class="form-check-label" for="message-students">All Students</label>
+                                </div>
+                                <div class="form-check form-switch me-2">
+                                    <input class="form-check-input options" id="class-1"
+                                           name="class-1" onclick="recipientCheck()" type="checkbox"
+                                           value="class-1">
+                                    <label class="form-check-label" for="class-1">First Year</label>
+                                </div>
+                                <div class="form-check form-switch me-2">
+                                    <input class="form-check-input options" id="class-2"
+                                           name="class-2" onclick="recipientCheck()" type="checkbox"
+                                           value="class-2">
+                                    <label class="form-check-label" for="class-2">Second Year</label>
+                                </div>
+                                <div class="form-check form-switch me-2">
+                                    <input class="form-check-input options" id="class-3"
+                                           name="class-3" onclick="recipientCheck()" type="checkbox"
+                                           value="class-3">
+                                    <label class="form-check-label" for="class-3">Third Year</label>
+                                </div>
+                                <div class="form-check form-switch me-2">
+                                    <input class="form-check-input options" id="safe-students"
+                                           name="safe-students" onclick="recipientCheck()" type="checkbox"
+                                           value="safe">
+                                    <label class="form-check-label" for="safe-students">Safe</label>
+                                </div>
+                                <div class="form-check form-switch me-2">
+                                    <input class="form-check-input options" id="at-risk-students"
+                                           name="at-risk-students" onclick="recipientCheck()" type="checkbox"
+                                           value="at-risk">
+                                    <label class="form-check-label" for="at-risk-students">At Risk</label>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="post" th:action="@{data-table/message}">
+                            <div class="mb-3">
+                                <label class="col-form-label" for="recipient-id">Recipient:</label>
+                                <input class="form-control" id="recipient-id" required type="text"
+                                       value="all-students">
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-form-label"
+                                       for="messageTitle">Title:</label>
+                                <input class="form-control"
+                                       id="messageTitle"
+                                       required type="text">
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-form-label" for="message-text">Message:</label>
+                                <textarea class="form-control" id="message-text" required></textarea>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Send
+                                
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="accordion accordion-flush mt-4 mb-2" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header " id="flush-headingOne">
+                    <button aria-controls="flush-collapseOne" aria-expanded="false" class="accordion-button collapsed"
+                            data-bs-target="#flush-collapseOne" data-bs-toggle="collapse" type="button">
+                        Filters <a class="btn d-flex align-items-sm-center p-0 ms-2 " data-bs-placement="bottom"
+                                   data-bs-toggle="tooltip" role="button"
+                                   title="Click to open different filter options."><i
+                            class="fas fa-info-circle"></i></a>
+                    </button>
+                </h2>
+                <div aria-labelledby="flush-headingOne" class="accordion-collapse collapse"
+                     data-bs-parent="#accordionFlushExample"
+                     id="flush-collapseOne">
+                    <div class="accordion-body">
+
+                        <form action="" class="col" method="get">
+                            <div class="row gy-4 ">
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="p-3 my-filters d-flex-inline w-100">
+                                        <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">
+                                            Select Year
+                                            <a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                               data-bs-placement="bottom"
+                                               data-bs-toggle="tooltip"
+                                               role="button"
+                                               title="Select the academic year to check out the metrics for the selected year."><i
+                                                    class="fas fa-info-circle"></i></a>
+                                        </h1>
+                                        <div class="btn-sm p-0">
+                                            <div class="form-check form-switch me-2">
+                                                <input checked class="form-check-input" id="all-years"
+                                                       name="all-years" onclick="check()" type="checkbox" value="all">
+                                                <label class="form-check-label" for="all-years">All
+                                                    Years</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="year-2019" name="year-2019"
+                                                       onclick="check()" type="checkbox" value="2019">
+                                                <label class="form-check-label" for="year-2019">2019</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="year-2020" name="year-2020"
+                                                       onclick="check()" type="checkbox" value="2020">
+                                                <label class="form-check-label" for="year-2020">2020</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="year-2021" name="year-2021"
+                                                       onclick="check()" type="checkbox" value="2021">
+                                                <label class="form-check-label" for="year-2021">2021</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="p-3 my-filters d-flex-inline w-100">
+                                        <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">Select
+                                            Class<a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-toggle="tooltip"
+                                                    role="button"
+                                                    title="Select the academic year to check out the metrics for the selected year."><i
+                                                    class="fas fa-info-circle"></i></a>
+                                        </h1>
+                                        <div class="btn-sm p-0">
+                                            <div class="form-check form-switch me-2">
+                                                <input checked class="form-check-input" id="all-classes"
+                                                       name="all-classes" onclick="check()" type="checkbox" value="all">
+                                                <label class="form-check-label" for="all-classes">All
+                                                    Classes</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="first-year-class"
+                                                       name="first-year-class"
+                                                       onclick="check()" type="checkbox"
+                                                       value="1">
+                                                <label class="form-check-label" for="first-year-class">First
+                                                    Year</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="second-year-class"
+                                                       name="second-year-class"
+                                                       onclick="check()" type="checkbox"
+                                                       value="2">
+                                                <label class="form-check-label" for="second-year-class">Second
+                                                    Year</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="third-year-class"
+                                                       name="third-year-class"
+                                                       onclick="check()" type="checkbox"
+                                                       value="3">
+                                                <label class="form-check-label" for="third-year-class">Third
+                                                    Year</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="p-3 my-filters d-flex-inline w-100">
+                                        <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">
+                                            Select Semester
+                                            <a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                               data-bs-placement="bottom"
+                                               data-bs-toggle="tooltip"
+                                               role="button"
+                                               title="Select the academic year to check out the metrics for the selected year."><i
+                                                    class="fas fa-info-circle"></i></a>
+                                        </h1>
+                                        <div class="btn-sm p-0">
+                                            <div class="form-check form-switch me-2">
+                                                <input checked class="form-check-input" id="all-semesters"
+                                                       name="all-semesters" type="checkbox" value="all">
+                                                <label class="form-check-label" for="all-semesters">All
+                                                    Semesters</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="semester-1" name="semester-1"
+                                                       onclick="check()" type="checkbox" value="1">
+                                                <label class="form-check-label"
+                                                       for="semester-1">Semester 1</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="semester-2" name="semester-2"
+                                                       onclick="check()" type="checkbox" value="2">
+                                                <label class="form-check-label"
+                                                       for="semester-2">Semester 2</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="p-3 my-filters d-flex-inline w-100">
+                                        <h1 class="d-flex font-weight-bold" style="font-size: .9rem;">Select
+                                            Status<a class="btn d-flex align-items-sm-center p-0 ms-2"
+                                                     data-bs-placement="bottom"
+                                                     data-bs-toggle="tooltip"
+                                                     role="button"
+                                                     title="Select the academic year to check out the metrics for the selected year."><i
+                                                    class="fas fa-info-circle"></i></a>
+                                        </h1>
+                                        <div class="btn-sm p-0">
+                                            <div class="form-check form-switch me-2">
+                                                <input checked class="form-check-input" id="all-status"
+                                                       name="all-status" type="checkbox" value="all">
+                                                <label class="form-check-label" for="all-status">All
+                                                    Status</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="safe" name="safe"
+                                                       onclick="check()" type="checkbox" value="safe">
+                                                <label class="form-check-label" for="safe">Safe</label>
+                                            </div>
+                                            <div class="form-check form-switch me-2">
+                                                <input class="form-check-input" id="at-risk" name="at-risk"
+                                                       onclick="check()" type="checkbox" value="at-risk">
+                                                <label class="form-check-label" for="at-risk">At Risk</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button class="btn btn-dark" type="submit">Apply</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-table">
+            <div class="row m-auto">
+                <div class="col bg-white mt-4 px-0">
+                    <header class=" d-flex d-flex-row justify-content-between p-3">
+                        <h1 class="fs-5 mb-0 ">Students Table</h1>
+                        <span class="fs-6 btn-sm btn-dark mb-0 ">Total Students: 264</span>
+                    </header>
+                    <div class="table-responsive px-3">
+                        <table class="table " id="" style="width:100%">
+                            <thead class="">
+                            <tr>
+                                <th>Std Number</th>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Course</th>
+                                <th>Year of Study</th>
+                                <th>Academic Year</th>
+                                <th>Status</th>
+                                <th>Aggregate</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>202112345</td>
+                                <td>Tiger Nixon</td>
+                                <td>Male</td>
+                                <td>BSC IT</td>
+                                <td>3</td>
+                                <td>2021</td>
+                                <td>
+                                    <div class="status-safe text-center rounded">
+                                        <span>Safe</span>
+                                    </div>
+                                </td>
+                                <td>96%</td>
+
+                                <!-- ACTIONS DATA -->
+                                <td class="">
+                                    <div class="d-flex actions">
+
+                                        <!-- Marks information modal -->
+                                        <div>
+                                            <!-- Button trigger modal -->
+                                            <button class="btn-icon rounded"
+                                                    data-bs-target="#viewStaticBackdrop"
+                                                    data-bs-toggle="modal" type="button">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div aria-hidden="true" aria-labelledby="staticBackdropLabel"
+                                                 class="modal fade" data-bs-backdrop="static"
+                                                 data-bs-keyboard="false"
+                                                 id="viewStaticBackdrop" tabindex="-1">
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="staticBackdropLabel">
+                                                                Student Details</h5>
+                                                            <button aria-label="Close" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    type="button"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <div class="table-responsive px-3">
+                                                                <table class="table text-start" id="example"
+                                                                       style="width:100%">
+                                                                    <thead class="">
+                                                                    <tr>
+                                                                        <th>Module Name</th>
+                                                                        <th>Semester</th>
+                                                                        <th>CA 1</th>
+                                                                        <th>CA 2</th>
+                                                                        <th>Assignment</th>
+                                                                        <th>Exam</th>
+                                                                        <th>Final Mark</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>Programming 731</td>
+                                                                        <td>1</td>
+                                                                        <td>
+                                                                            <div
+                                                                                    class="status-safe text-center rounded">
+                                                                                <span>76%</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div
+                                                                                    class="status-at-risk text-center rounded">
+                                                                                <span>44%</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div
+                                                                                    class="status-safe text-center rounded">
+                                                                                <span>87%</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div
+                                                                                    class="status-safe text-center rounded">
+                                                                                <span>77%</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div
+                                                                                    class="status-safe text-center rounded">
+                                                                                <span>6%</span>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                    type="button">
+                                                                Close
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- MESSAGE STUDENT MODAL -->
+                                        <div>
+                                            <button class="btn-icon rounded" data-bs-target="#messageModal"
+                                                    data-bs-toggle="modal" data-bs-whatever="202109876"
+                                                    type="button"><i
+                                                    class="fas fa-envelope"></i></button>
+
+                                            <div aria-hidden="true" aria-labelledby="messageModalLabe"
+                                                 class="modal fade"
+                                                 id="messageModa" tabindex="-1">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="messageModalLabe">
+                                                                New message</h5>
+                                                            <button aria-label="Close" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    type="button"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" th:action="@{data-table/message}">
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label"
+                                                                           for="recipient-name">Recipient:</label>
+                                                                    <input class="form-control"
+                                                                           id="recipient-name"
+                                                                           required
+                                                                           type="text" value="202109876">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label"
+                                                                           for="title">Title:</label>
+                                                                    <input class="form-control"
+                                                                           id="title"
+                                                                           required type="text">
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="col-form-label"
+                                                                           for="message-txt">Message:</label>
+                                                                    <textarea class="form-control"
+                                                                              id="message-txt" required></textarea>
+                                                                </div>
+                                                                <button class="btn btn-primary" type="submit">Send
+
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                    type="button">Close
+                                                            </button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/js/chart.min.js}"></script>
+<script th:src="@{assets/js/bs-init.js}"></script>
+<script th:src="@{assets/js/data-table-filters.js}"></script>
+<script th:src="@{assets/js/message-filters.js}"></script>
+<script th:src="@{assets/js/main.js}"></script>
+
+</body>
+
+</html>

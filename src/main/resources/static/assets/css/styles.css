@@ -1,0 +1,251 @@
+/* Add a black background color to the top navigation */
+.top-nav {
+    background: #067eed;
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    padding: 0 4rem;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.top-nav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Add an active class to highlight the current page */
+.active {
+    background-color: #0669c5;
+    color: white;
+}
+
+/* Hide the link that should open and close the top-nav on small screens */
+.top-nav .icon {
+    display: none;
+}
+
+/* drop-down container - needed to position the drop-down content */
+.drop-down {
+    float: left;
+    overflow: hidden;
+}
+
+/* Style the drop-down button to fit inside the top-nav */
+.drop-down .drop-btn {
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+/* Style the drop-down content (hidden by default) */
+.drop-down-content {
+    display: none;
+    position: absolute;
+    background-color: #c7e2fc;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Style the links inside the drop-down */
+.drop-down-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+/* Add a dark background on top-nav links and the drop-down button on hover */
+.top-nav a:hover, .drop-down:hover .drop-btn {
+    background-color: #0669c5;
+    color: white;
+}
+
+/* Add a grey background to drop-down links on hover */
+.drop-down-content a:hover {
+    background-color: #0669c5;
+    color: white;
+}
+
+/* Show the drop-down menu when the user moves the mouse over the drop-down button */
+.drop-down:hover .drop-down-content {
+    display: block;
+}
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the top-nav (.icon) */
+@media screen and (max-width: 768px) {
+    .top-nav a:not(:first-child), .drop-down .drop-btn {
+        display: none;
+    }
+    .top-nav a.icon {
+        float: right;
+        display: block;
+    }
+    .top-nav{
+        padding: 0 1rem;
+    }
+}
+
+/* The "responsive" class is added to the top-nav with JavaScript when the user clicks on the icon. This class makes the top-nav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 768px) {
+    .top-nav.responsive {position: relative;}
+    .top-nav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .top-nav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    .top-nav.responsive .drop-down {float: none;}
+    .top-nav.responsive .drop-down-content {position: relative;}
+    .top-nav.responsive .drop-down .drop-btn {
+        display: block;
+        text-align: left;
+    }
+}
+
+.input-group-text {
+  background-color: #067eed;
+  color: aliceblue;
+  border: 1px solid #6caee0 !important;
+  transition: .5s all ease-in-out;
+}
+
+.input-group-text:hover {
+  background-color: rgba(6,126,237,.2);
+  color: #067eed;
+}
+
+.form-control {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #6caee0 !important;
+  /*background-color: #1e6add;*/
+}
+
+.form-control:focus {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0, .15) !important;
+}
+
+.add-student {
+  background-color: transparent;
+  border: 2px solid #6caee0;
+  color: #6caee0;
+  transition: .4s all ease-in-out;
+}
+
+.add-student:hover {
+  background-color: #1e6add;
+  border: 2px solid #6caee0;
+  color: white;
+}
+
+.search-form {
+  box-shadow: none !important;
+}
+
+th, td {
+  max-width: 100% !important;
+  white-space: nowrap;
+}
+
+.nav-link {
+  color: white !important;
+  transition: .4s all ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.my-header {
+  background: linear-gradient(to right, #1ea2ef, #2478dc);
+}
+
+.chart-container{
+  height: 100%;
+  width: 100%;
+}
+.chart-container .my-chart{
+  height: 100%;
+  width: 100%;
+}
+.school .chart-container .my-chart{
+  height: 75%;
+}
+.overview-chart{
+  background-color: #ffffff;
+}
+
+.my-table .header{
+  background: linear-gradient(to right, #1ea2ef, #2478dc);
+}
+.my-filters{
+   background: rgba(6, 126, 237, .05);
+   border-radius: .3rem;
+   border-left: #2478dc solid 12px;
+ }
+ .my-filters select{
+   border: none;
+   outline: none;
+   border-radius: 0;
+   padding: 0 auto;
+   border-bottom: #5e5757 2px solid;
+ }
+
+ .status-safe{
+   background-color: rgba(77, 252, 43, 0.3);
+ }
+ .status-at-risk{
+   background-color: rgba(252, 43, 43, 0.3);
+   text-align: center;
+ }
+ .actions .btn-icon{
+   background: none;
+   outline: none;
+   border: none;
+ }
+
+ .actions .btn-icon:hover{
+   background: rgba(6, 126, 237, .2);
+ }
+
+ .custom-message{
+   position: fixed;
+   bottom: 0;
+   right: 0;
+   z-index: 10;
+ }
+ 
+ .login-dark {
+  height: 100vh;
+  background: linear-gradient(to right, #005C97, #363795);
+  background-image: url("../img/background.jpg");
+  background-size: cover;
+  position: relative;
+}
+
+.login-dark form {
+  max-width: 320px;
+  width: 90%;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.5);  
+  /*backdrop-filter: blur(5px);*/
+}
